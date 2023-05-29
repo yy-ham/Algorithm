@@ -1,0 +1,118 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+	static Deque<Snake> deque;
+	static int[][] board;
+	static int n, l, cnt, dir, answer;
+	static int[] dy = {-1, 0, 1, 0};
+	static int[] dx = {0, 1, 0, -1};
+	static boolean stop;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+		
+		n = Integer.parseInt(br.readLine());
+		board = new int[n + 1][n + 1];
+		
+		int k = Integer.parseInt(br.readLine());
+		for(int i = 0; i < k; i++) {
+			st = new StringTokenizer(br.readLine());
+			int row = Integer.parseInt(st.nextToken());
+			int col = Integer.parseInt(st.nextToken());
+			board[row][col] = -1;
+		}
+		
+		dir = 1; // 방향
+		cnt = 0; //방향 변환 횟수 카운트
+		stop = false;
+        answer = 0;
+		
+		deque = new LinkedList<Snake>();
+		deque.add(new Snake(1, 1));
+		
+		l = Integer.parseInt(br.readLine()); //방향 변환 횟수
+		for(int i = 0; i < l; i++) {
+			st = new StringTokenizer(br.readLine());
+			int sec = Integer.parseInt(st.nextToken());
+			String rot = st.nextToken();
+			move(sec, rot);
+			if(stop) {
+				break;
+			}
+		}
+		
+		sb.append(answer);
+		System.out.println(sb);
+	}
+	
+	public static void move(int sec, String rot) {
+		while(true) {
+			Snake head = deque.getFirst();
+			int ny = head.y + dy[dir];
+			int nx = head.x + dx[dir];
+			
+			//벽
+			if(ny <= 0 || ny > n || nx <= 0 || nx > n) {
+				answer++;
+				stop = true;
+				return;
+			}
+			
+			//자기자신과 만났을 때
+			for(Snake sn : deque) {
+				if(ny == sn.y && nx == sn.x) {
+					answer++;
+					stop = true;
+					return;
+				}
+			}
+			
+			//사과
+			if(board[ny][nx] == -1) {
+				board[ny][nx] = 0;
+				deque.offerFirst(new Snake(ny, nx));
+			}else {
+				deque.offerFirst(new Snake(ny, nx));
+				deque.pollLast();
+			}
+			
+			answer++;
+			
+			//방향 변환
+			if(answer == sec) {
+				if(rot.equals("D")) {
+					//시계방향
+					dir++;
+					if(dir > 3) {
+						dir = 0;
+					}
+				}else {
+					//반시계방향
+					dir--;
+					if(dir < 0) {
+						dir = 3;
+					}
+				}
+				cnt++;
+				
+				//방향 변환 끝났으면 다음 방향 변환 정보 입력받아야 함
+				if(cnt != l) {
+					return;
+				}
+			}
+		}//end while
+	}
+}
+
+class Snake{
+	int y;
+	int x;
+	
+	public Snake(int y, int x) {
+		this.y = y;
+		this.x = x;
+	}
+}
