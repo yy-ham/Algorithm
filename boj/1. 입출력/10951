@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		
+		String str;
+		//반복문 while, EOF
+		//readLine() : 스트림 끝에 도달한 경우 null 반환
+		while((str = br.readLine()) != null) {
+			//문자 분리
+			StringTokenizer st = new StringTokenizer(str);
+			
+			//문자 -> 숫자 변환
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			
+			//출력 추가
+			sb.append(a + b).append("\n");
+		}
+			
+		//최종 출력
+		System.out.println(sb);
+	}
+}
