@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader, StringBuilder
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		//테스트케이스 입력
+		int n = Integer.parseInt(br.readLine());
+		
+		//테스트케이스만큼 반복, for, 케이스 번호 1부터
+		for(int i = 1; i <= n; i++) {
+			//입력된 문자열 분리, 구분자는 띄어쓰기
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			//문자 -> 숫자 변환
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			
+			//출력 템플릿, a+b, 개행문자 출력 추가
+			sb.append("Case #").append(i).append(": ").append(a + b).append("\n");
+		}
+		//최종 출력
+		System.out.println(sb);
+	}
+}
