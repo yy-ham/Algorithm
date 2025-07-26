@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader, StringBuilder
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		String str = br.readLine();
+		int n = str.length();
+		
+		//반복문 for
+		for(int i = 0; i < n; i++) {
+			sb.append(str.charAt(i));
+			
+			if(i % 10 == 9) {
+				sb.append("\n");
+			}
+		}
+		
+		System.out.println(sb);
+	}
+}
