@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//월, 일 분리 StringTokenizer
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+    // 3 3 -> WED
+		// 31 + 28 + 14 = 73
+		// 73 % 7 = 3; -> 수
+		//(이전 월들의 일수 + 현재 일수) % 7 = 요일
+		
+		//월, 일 입력
+		int x = Integer.parseInt(st.nextToken());
+		int y = Integer.parseInt(st.nextToken());
+		
+		//days
+		int[] monthOfDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		
+		//요일 배열 필요 String[], 7로 나눈 나머지와 요일 맞추기 위해 일요일부터 시작
+		String[] dayOfWeek = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+		
+		int totalDays = 0;
+		
+		for(int i = 1; i < x; i++) {
+			totalDays += monthOfDays[i];
+		}
+		totalDays += y;
+
+		System.out.println(dayOfWeek[totalDays % 7]);
+	}
+}
