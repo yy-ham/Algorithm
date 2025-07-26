@@ -1,0 +1,23 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader, StringBuilder
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		//자연수 n
+		int n = Integer.parseInt(br.readLine());
+		
+		//for문
+		for(int i = 1; i <= n; i++) {
+			//숫자 출력 추가
+			sb.append(i).append("\n");
+		}
+		
+		//최종 출력
+		System.out.println(sb);
+	}
+}
