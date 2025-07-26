@@ -1,0 +1,24 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//n 입력
+		int n = Integer.parseInt(br.readLine());
+		
+		//결과 변수, 0 초기화
+		int answer = 0;
+		
+		//for i = 1~n
+		for(int i = 1; i <= n; i++) {
+			answer += i;
+		}
+		
+		//결과 변수 출력
+		System.out.println(answer);	
+	}
+}
