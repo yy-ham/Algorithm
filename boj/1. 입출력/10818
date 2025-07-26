@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력 BufferedReader, StringBuilder
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+
+		//n 입력
+		int n = Integer.parseInt(br.readLine());
+
+		//StringTokenizer, 정수 분리
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		//최댓값, 최솟값을 첫 번째 정수로 초기화
+		int x = Integer.parseInt(st.nextToken());
+		int min = x;
+		int max = x;
+		
+		//for n - 1 만큼 반복, 첫 번째 정수는 비교 안 해도 되니까
+		for(int i = 0; i < n - 1; i++) {
+			x = Integer.parseInt(st.nextToken());
+			//if 다음 정수랑 최댓값, 최솟값 비교
+			if(x > max) {
+				max = x;
+			}
+			
+			if(x < min) {
+				min = x;
+			}
+		}
+		
+		//최솟값, 공백, 최댓값 출력 추가
+		sb.append(min).append(" ").append(max);
+		System.out.println(sb);
+	}
+}
