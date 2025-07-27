@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		//n 입력
+		int n = Integer.parseInt(br.readLine());
+		
+		//for, 첫 번째 줄, 공백, n-1
+		for(int i = 1; i <= (n - 1); i++) {
+			sb.append(" ");
+		}
+		
+		//첫 번째 줄, * 1개 출력
+		sb.append("*").append("\n");
+		
+		//for, 중앙, i=2~n-1
+		for(int i = 2; i <= n; i++) {
+			//마지막 줄
+			if(i == n) {
+				//for, 하부, 2n-1
+				for(int l = 1; l <= (2 * n - 1); l++) {
+					sb.append("*");
+				}
+				break;
+			}
+			
+			//for, 공백
+			for(int j = 1; j <= (n - i); j++) {
+				sb.append(" ");
+			}
+			
+			//* 하나 찍고
+			sb.append("*");
+			
+			//for, 공백
+			for(int k = 1; k <= (2 * i - 3); k++) {
+				sb.append(" ");
+			}
+			
+			//*하나 찍고
+			sb.append("*").append("\n");
+		}
+		
+		//최종 출력
+		System.out.println(sb);
+	}
+}
