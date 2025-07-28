@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		//입출력
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//n 입력
+		int n = Integer.parseInt(br.readLine());
+		
+		//배열 생성, 초기화
+		int[] dp = new int[n + 1];
+		dp[1] = 0; //1일 때는 연산 안 해서 0
+		
+		//점화식 도출
+		for(int i = 2; i <= n; i++) {
+			dp[i] = dp[i - 1] + 1; // -1 연산은 모든 수에서 가능
+			
+			if(i % 2 == 0) {
+				dp[i] = Math.min(dp[i], dp[i / 2] + 1); //-1 연산한 경우와 /2 연산한 경우 중 뭐가 더 최소인지 비교
+			}
+			
+			if(i % 3 == 0) {
+				dp[i] = Math.min(dp[i], dp[i / 3] + 1); //-1 연산한 경우와 /3 연산한 경우 중 뭐가 더 최소인지 비교
+			}
+		}
+		
+		System.out.println(dp[n]);
+	}
+}
