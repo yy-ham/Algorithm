@@ -1,0 +1,44 @@
+// https://hotgamza.tistory.com/103
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		// 입출력
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		// n 입력
+		int n = Integer.parseInt(br.readLine());
+		
+		// 배열 생성, 초기화
+		long [][] D = new long[n + 1][10];
+		D[1][0] = 0;
+		for(int i = 1; i <= 9; i++) {
+			D[1][i] = 1;
+		}
+		
+		// for
+		for(int i = 2; i <= n; i++) {
+			// for
+			for(int j = 0; j <= 9; j++) {
+				if(j == 0) {
+					D[i][j] = D[i - 1][1] % 1000000000;
+				}else if(j == 9) {
+					D[i][j] = D[i - 1][8] % 1000000000;
+				}else {
+					D[i][j] = (D[i - 1][j - 1] + D[i - 1][j + 1]) % 1000000000;
+				}
+			}
+		}
+		
+		// 정답
+		long answer = 0;
+		for(int i = 0; i <= 9; i++) {
+			answer += D[n][i];
+		}
+		
+		System.out.println(answer % 1000000000);
+	}
+}
