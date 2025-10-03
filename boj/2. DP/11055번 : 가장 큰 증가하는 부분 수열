@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		/*
-		 * 초기값: dp[1] = seq[1]
+		 * 초기값: dp = seq
 		 * 현재 숫자와 이전의 숫자들을 비교하고, 현재 숫자가 이전 숫자보다 크다면 이전 숫자의 dp 값에 현재 숫자를 더하면 된다.
 		 */
 		
