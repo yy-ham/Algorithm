@@ -1,0 +1,52 @@
+// https://hotgamza.tistory.com/113
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		/*
+		 * 초기값: dp[1] = seq[1]
+		 * 현재 숫자와 이전의 숫자들을 비교하고, 현재 숫자가 이전 숫자보다 크다면 이전 숫자의 dp 값에 현재 숫자를 더하면 된다.
+		 */
+		
+		// 입출력 BufferedReader, StringTokenizer
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		// 입력
+		int n = Integer.parseInt(br.readLine());
+		st = new StringTokenizer(br.readLine());
+		
+		// 배열 선언 및 초기화
+		int[] seq = new int[n + 1];
+		int[] dp = new int[n + 1];
+		for(int i = 1; i <= n; i++) {
+			int k = Integer.parseInt(st.nextToken());
+			seq[i] = k;
+			dp[i] = k;
+		}
+		
+		// dp 테이블 채우기
+		for(int i = 2; i <= n; i++) {
+			for(int j = 1; j < i; j++) {
+				if(seq[i] > seq[j]) {
+					dp[i] = Math.max(dp[i], dp[j] + seq[i]);
+				}
+			}
+		}
+		
+		// 최대값 구하기
+		int max = dp[1];
+		for(int i = 2; i <= n; i++) {
+			if(dp[i] > max) {
+				max = dp[i];
+			}
+		}
+		
+		// 답 출력
+		System.out.println(max);
+	}
+};
