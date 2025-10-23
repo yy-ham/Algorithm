@@ -1,0 +1,58 @@
+// https://hotgamza.tistory.com/117
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		// 입력 BufferedReader, StringTokenizer
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+
+		int n = Integer.parseInt(br.readLine());
+		st = new StringTokenizer(br.readLine());
+		
+		// 배열 생성 및 초기화
+		int[] seq = new int[n + 1];
+		int[] l_dp = new int[n + 1];
+		int[] r_dp = new int[n + 1];		
+		for(int i = 1; i <= n; i++) {
+			seq[i] = Integer.parseInt(st.nextToken());
+			l_dp[i] = 1;
+			r_dp[i] = 1;
+		}
+		
+		// dp 테이블 채우기
+		// 왼쪽에서 오른쪽으로 증가하는 최장 증가 부분 수열
+		for(int i = 2; i <= n; i++) {
+			for(int j = 1; j < i; j++) {
+				if(seq[i] > seq[j]) {
+					l_dp[i] = Math.max(l_dp[i], l_dp[j] + 1);
+				}
+			}
+		}
+		
+		// 오른쪽에서 왼쪽으로 증가하는 최장 증가 부분 수열
+		for(int i = n - 1; i >= 1; i--) {
+			for(int j = n; j > i; j--) {
+				if(seq[i] > seq[j]) {
+					r_dp[i] = Math.max(r_dp[i], r_dp[j] + 1);
+				}
+			}
+		}
+		
+		// 최댓값 구하기
+		int max = l_dp[1] + r_dp[1] - 1;
+		for(int i = 2; i <= n; i++) {
+			int length = l_dp[i] + r_dp[i] - 1; // 원소가 1개씩 중복되어 있으므로 - 1
+			if(length > max) {
+				max = length;
+			}
+		}
+		
+		// 최댓값 출력
+		System.out.println(max);
+	}
+}
