@@ -1,0 +1,59 @@
+// https://hotgamza.tistory.com/126
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		// 입력
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String code = br.readLine();
+		int n = code.length(); // 암호의 길이
+
+		int mod = 1000000;
+		
+		/*
+		 * dp[1] = 1 // 자기자신 1가지
+		 * 
+		 * dp[i] = dp[i-1] + dp[i - 2] // 이전 숫자와 현재 숫자로 암호를 표현할 수 있는 경우 (11 ~ 26)
+		 * dp[i] = dp[i - 1] // 이전 숫자가 0인 경우, 이전 숫자와 현재 숫자로 암호를 표현할 수 없는 경우 (ex. 91, 28)
+		 * dp[i] = dp[i - 2] // 현재 숫자가 0인 경우
+		 * 
+		 */
+		
+		// 배열 선언 및 초기화
+		int[] dp = new int[n + 1];
+		
+		// dp 테이블 채우기 
+		dp[0] = 1;
+		dp[1] = 1;
+		
+		// 암호를 해석할 수 없는 경우
+		if(code.charAt(0) == '0') {
+			dp[n] = 0;
+		} else {
+			// 암호를 해석할 수 있는 경우
+			for(int i = 2; i <= n; i++) {
+				int cur = code.charAt(i - 1) - '0';
+				int pre = code.charAt(i - 2) - '0';
+				
+				if (cur == 0) {
+					if(pre == 1 || pre == 2) {
+						dp[i] = dp[i - 2];
+					}
+				} else {
+					if (pre == 1 || (pre == 2 && cur <= 6)) {
+						dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
+					} else {
+						dp[i] = dp[i - 1];
+					}
+				}
+			}
+		}
+		
+		// 출력
+		System.out.println(dp[n]);
+	}
+}
